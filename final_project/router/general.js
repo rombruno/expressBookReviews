@@ -30,12 +30,18 @@ public_users.get("/isbn/:isbn",function (req, res) {
 public_users.get('/author/:author',function (req, res) {
     const author = req.params.author;
     const books_keys = Object.keys(books);
-    books_keys.forEach((key) => { 
+    let matched_book = "";
+    books_keys.forEach((key) => {
         let book = books[key];
         if(book["author"] === author) {
-            res.send(JSON.stringify(book,null,4)); 
+            matched_book += '\n' + JSON.stringify(book,null,4);
         }
     })
+    if(matched_book === "") {
+       matched_book = "Unable to find author " + author; 
+    }
+    res.send(matched_book);
+    //res.send(JSON.stringify(matched_book,null,4)); 
 });
 
 // Get all books based on title
