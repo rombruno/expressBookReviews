@@ -45,16 +45,19 @@ public_users.get('/author/:author',function (req, res) {
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
-    const title = req.params.title;
+    const title = req.params.title.toLowerCase();
     const books_keys = Object.keys(books);
-    let matched_book = "Unable to find title" + title;
+    let matched_book = "";
     books_keys.forEach((key) => {
         let book = books[key];
-        if(book["title"] === title) {
-            matched_book = book;
+        if(book["title"].toLowerCase().indexOf(title) >= 0) {
+            matched_book += '\n' + JSON.stringify(book,null,4);
         }
     })
-    res.send(JSON.stringify(matched_book,null,4)); 
+    if(matched_book === "") {
+        matched_book = "Unable to find title " + title; 
+     }
+    res.send(matched_book); 
 });
 
 //  Get book review
