@@ -49,13 +49,14 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
     const review = req.body.review;
     const reviewer = req.session.user;
-    //if (review){
-    //    let book = books[isbn];
-    //    if(book) {
-    //        let reviews = book["reviews"];
-    //        reviews[reviewer] = review;
-    //    }
-    //}
+    if (review){
+        let book = books[isbn];
+        if(book) {
+            let reviews = book["reviews"];
+            reviews[reviewer] = review;
+            res.send(reviewer + "'s review added")
+        }
+    }
 });
 
 module.exports.authenticated = regd_users;
