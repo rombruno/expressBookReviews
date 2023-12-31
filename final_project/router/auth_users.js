@@ -24,6 +24,7 @@ const authenticatedUser = (username,password)=>{
 regd_users.post("/login", (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
+    req.session.user = username; //store session information to be used later (modify review)
   
     if (!username || !password) {
         return res.status(404).json({message: "Error logging in"});
@@ -47,17 +48,14 @@ regd_users.post("/login", (req,res) => {
 regd_users.put("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
     const review = req.body.review;
-    const reviewer = req.session.user
-    if (review){
-        let book = books[isbn];
-        if(book) {
-            let review_book = book[review];
-            if(review_book[reviewer]) {
-                review_book[reviewer] = review;
-            }
-        }
-    }
-
+    const reviewer = req.session.user;
+    //if (review){
+    //    let book = books[isbn];
+    //    if(book) {
+    //        let reviews = book["reviews"];
+    //        reviews[reviewer] = review;
+    //    }
+    //}
 });
 
 module.exports.authenticated = regd_users;
