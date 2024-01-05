@@ -32,25 +32,24 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-const methCall = new Promise((resolve,reject)=>{
-    try {
-        const data = public_users.get('/',function (req, res) {
+const promise1 = new Promise((myresolve,myreject)=>{
+        public_users.get('/',function (req, res) {
+            try {
                         res.send(JSON.stringify(books,null,4));
-                     });
-        resolve(data);
-    } catch(err) {
-        reject(err)
-    }
+                        myresolve("response successfully sent for GET /");
+            } catch(err) {
+                myreject("response not sent because of an error")
+                return res.status(404).json({message: "Unable to handle request"});
+            }
+        });      
 });
 
-methCall.then(
-    (data) => console.log(data),
-    (err) => console.log(err) 
+promise1.then(
+    (successMessage) => console.log(successMessage),
+    (errorMessage) => console.log(errorMessage) 
   );
 
-//public_users.get('/',function (req, res) {
-//  res.send(JSON.stringify(books,null,4));
-//});
+
 
 // Get book details based on ISBN
 public_users.get("/isbn/:isbn",function (req, res) {
