@@ -32,22 +32,42 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-const promise1 = new Promise((myresolve,myreject)=>{
-        public_users.get('/',function (req, res) {
-            try {
-                        res.send(JSON.stringify(books,null,4));
-                        myresolve("response successfully sent for GET /");
-            } catch(err) {
-                myreject("response not sent because of an error")
-                return res.status(404).json({message: "Unable to handle request"});
-            }
-        });      
-});
+//const promise1 = new Promise((myresolve,myreject)=>{
+//        public_users.get('/',function (req, res) {
+//            try {
+//                        res.send(JSON.stringify(books,null,4));
+//                        myresolve("response successfully sent for GET /");
+//            } catch(err) {
+//                myreject("response not sent because of an error")
+//                return res.status(404).json({message: "Unable to handle request"});
+//            }
+//        });      
+//});
 
-promise1.then(
-    (successMessage) => console.log(successMessage),
-    (errorMessage) => console.log(errorMessage) 
-  );
+
+public_users.get('/',function (req, res) {
+    const promise1 = new Promise((myresolve,myreject)=>{
+        try {
+            setTimeout(() => {
+                    res.send(JSON.stringify(books,null,4));
+                    myresolve("response successfully sent for GET /");
+            },10000)    
+        } catch(err) {
+            myreject("response not sent because of an error")
+            return res.status(404).json({message: "Unable to handle request"});
+        }  
+    });
+    promise1.then(
+        (successMessage) => console.log(successMessage),
+        (errorMessage) => console.log(errorMessage) 
+    );
+    
+}); 
+
+//promise1.then(
+//    (successMessage) => console.log(successMessage),
+//    (errorMessage) => console.log(errorMessage) 
+//  );
 
 
 
