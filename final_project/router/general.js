@@ -37,7 +37,7 @@ public_users.get('/',function (req, res) {
             setTimeout(() => {      //setTimeout function allows to run asynchronously
                     res.send(JSON.stringify(books,null,4));
                     myresolve("response successfully sent for GET /");
-            },10000)    
+            },1000)    
         } catch(err) {
             myreject("response not sent because of an error")
             return res.status(404).json({message: "Unable to handle request"});
@@ -63,7 +63,7 @@ public_users.get("/isbn/:isbn",function (req, res) {
                 } else {
                     res.send("Unable to find book!");
                 }
-            },10000)
+            },1000)
         } catch(err) {
             myreject("response not sent because of an error")
             return res.status(404).json({message: "Unable to handle request"});
@@ -94,7 +94,7 @@ public_users.get('/author/:author',function (req, res) {
                 }
                 res.send(matched_book);
                 myresolve("response successfully sent for GET /author/:author");
-            },10000)
+            },1000)
         } catch(err) {
             myreject("response not sent because of an error")
             return res.status(404).json({message: "Unable to handle request"});
@@ -125,7 +125,7 @@ public_users.get('/title/:title',function (req, res) {
                 }
                 res.send(matched_book);
                 myresolve("response successfully sent for GET /title/:title");
-            },10000)
+            },1000)
         } catch(err) {
             myreject("response not sent because of an error")
             return res.status(404).json({message: "Unable to handle request"});

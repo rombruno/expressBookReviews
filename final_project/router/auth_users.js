@@ -54,7 +54,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
         if(book) {
             let reviews = book["reviews"];
             reviews[reviewer] = review;
-            res.send(reviewer + "'s review added")
+            res.send(reviewer + "'s review added for isbn " + isbn);
         }
     }
 });
@@ -68,9 +68,9 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
         let review = reviews[reviewer]
         if(review) {
             delete reviews[reviewer];
-            res.send(reviewer + "'s review deleted")
+            res.send(reviewer + "'s review deleted for isbn " + isbn);
         } else {
-            res.send(reviewer + "'s review not found")
+            res.send(reviewer + "'s review not foundfir isbn " + isbn);
         }
     }
 });
